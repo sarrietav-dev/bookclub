@@ -22,7 +22,7 @@ class SignUp extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                const LoginForm(),
+                const SignUpForm(),
               ],
             ),
           ),
@@ -32,8 +32,8 @@ class SignUp extends StatelessWidget {
   }
 }
 
-class LoginForm extends StatelessWidget {
-  const LoginForm({Key? key}) : super(key: key);
+class SignUpForm extends StatelessWidget {
+  const SignUpForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

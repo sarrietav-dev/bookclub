@@ -1,3 +1,4 @@
+import 'package:bookclub/pages/signup/signup.dart';
 import 'package:bookclub/widgets/app_card.dart';
 import 'package:flutter/material.dart';
 
@@ -74,7 +75,10 @@ class LoginForm extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => const SignUp()));
+          },
           child: const Text("Don't have an account? Sign up here"),
           style: TextButton.styleFrom(
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
