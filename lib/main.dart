@@ -1,4 +1,5 @@
 import 'package:bookclub/pages/login/login.dart';
+import 'package:bookclub/pages/signup/signup.dart';
 import 'package:bookclub/utils/theme.dart';
 import 'package:flutter/material.dart';
 

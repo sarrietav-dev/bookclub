@@ -1,8 +1,8 @@
 import 'package:bookclub/widgets/app_card.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+class SignUp extends StatelessWidget {
+  const SignUp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +14,13 @@ class Login extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.all(20),
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(40),
-                  child: Image.asset("assets/logo.png"),
+                Row(
+                  children: const [
+                    BackButton(),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 const LoginForm(),
               ],
@@ -39,12 +43,19 @@ class LoginForm extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 8),
           child: Text(
-            "Login",
+            "Sign up",
             style: TextStyle(
                 color: Theme.of(context).secondaryHeaderColor,
                 fontSize: 25,
                 fontWeight: FontWeight.bold),
           ),
+        ),
+        TextFormField(
+          decoration: const InputDecoration(
+              prefixIcon: Icon(Icons.person_outline), hintText: "Full name"),
+        ),
+        const SizedBox(
+          height: 20,
         ),
         TextFormField(
           decoration: const InputDecoration(
@@ -60,12 +71,20 @@ class LoginForm extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
+        TextFormField(
+          decoration: const InputDecoration(
+              prefixIcon: Icon(Icons.lock_outline),
+              hintText: "Confirm Password"),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
         ElevatedButton(
           onPressed: () {},
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 100),
             child: Text(
-              "Log in",
+              "Sign up",
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,
@@ -73,12 +92,6 @@ class LoginForm extends StatelessWidget {
             ),
           ),
         ),
-        TextButton(
-          onPressed: () {},
-          child: const Text("Don't have an account? Sign up here"),
-          style: TextButton.styleFrom(
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-        )
       ],
     ));
   }
