@@ -16,15 +16,11 @@ class CurrentUser with ChangeNotifier {
   /// if the email was invalid or already in use.
   Future<bool> signUpUser(
       {required String email, required String password}) async {
-    try {
-      UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+    UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
+        email: email, password: password);
 
-      if (_authResult.user != null) return true;
-    } on FirebaseAuthException catch (e) {
-      // ignore: avoid_print
-      print(e);
-    }
+    if (_authResult.user != null) return true;
+
     return false;
   }
 
@@ -34,18 +30,12 @@ class CurrentUser with ChangeNotifier {
   /// the user or the [email] doesn't exist, or if the user was banned.
   Future<bool> logInUser(
       {required String email, required String password}) async {
-    try {
-      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-          email: email, password: password);
+    UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email, password: password);
 
-      _uid = userCredential.user!.uid;
-      _email = userCredential.user!.email!;
+    _uid = userCredential.user!.uid;
+    _email = userCredential.user!.email!;
 
-      return true;
-    } on FirebaseAuthException catch (e) {
-      // ignore: avoid_print
-      print(e);
-    }
-    return false;
+    return true;
   }
 }
