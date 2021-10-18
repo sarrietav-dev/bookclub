@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
-class CurrentState with ChangeNotifier {
+class CurrentUser with ChangeNotifier {
   late final String _uid;
   late final String _email;
 
