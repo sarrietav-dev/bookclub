@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
+  static const routeName = "/signup";
 
   @override
   Widget build(BuildContext context) {

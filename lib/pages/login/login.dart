@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
+  static const routeName = "/login";
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +78,8 @@ class _LoginFormState extends State<LoginForm> {
           height: 20,
         ),
         ElevatedButton(
-          onPressed: () {
-            _loginUser(context,
-                email: _emailController.text,
-                password: _passwordController.text);
-          },
+          onPressed: () => _loginUser(context,
+              email: _emailController.text, password: _passwordController.text),
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 100),
             child: Text(
@@ -94,10 +92,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
         ),
         TextButton(
-          onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => const SignUp()));
-          },
+          onPressed: () => Navigator.of(context).pushNamed(SignUp.routeName),
           child: const Text("Don't have an account? Sign up here"),
           style: TextButton.styleFrom(
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
@@ -112,8 +107,7 @@ class _LoginFormState extends State<LoginForm> {
 
     try {
       await currentUser.logInUser(email: email, password: password);
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => const Home()));
+      Navigator.of(context).pushReplacementNamed(Home.routeName);
 
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.green.shade400,

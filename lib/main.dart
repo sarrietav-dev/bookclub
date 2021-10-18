@@ -1,4 +1,6 @@
+import 'package:bookclub/pages/home/home.dart';
 import 'package:bookclub/pages/login/login.dart';
+import 'package:bookclub/pages/signup/signup.dart';
 import 'package:bookclub/providers/current_user.dart';
 import 'package:bookclub/utils/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,6 +21,11 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => CurrentUser(),
       child: MaterialApp(
+        routes: {
+          Home.routeName: (context) => const Home(),
+          Login.routeName: (context) => const Login(),
+          SignUp.routeName: (context) => const SignUp(),
+        },
         debugShowCheckedModeBanner: false,
         theme: AppTheme.buildTheme(),
         home: const Login(),
