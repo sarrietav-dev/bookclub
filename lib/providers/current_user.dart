@@ -16,12 +16,10 @@ class CurrentUser with ChangeNotifier {
   /// if the email was invalid or already in use.
   Future<bool> signUpUser(
       {required String email, required String password}) async {
-    UserCredential _authResult = await _auth.createUserWithEmailAndPassword(
+    await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
 
-    if (_authResult.user != null) return true;
-
-    return false;
+    return true;
   }
 
   /// Logs the user in and sets up the daata in the provider
