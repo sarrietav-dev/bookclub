@@ -14,26 +14,22 @@ class CurrentUser with ChangeNotifier {
   ///
   /// Throws an [FirebaseAuthException] if the password was weak and
   /// if the email was invalid or already in use.
-  Future<bool> signUpUser(
+  Future<void> signUpUser(
       {required String email, required String password}) async {
     await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
-
-    return true;
   }
 
-  /// Logs the user in and sets up the daata in the provider
+  /// Logs the user in and sets up the data in the provider
   ///
   /// Throws an [FirebaseAuthException] if the [password] was incorrect
   /// the user or the [email] doesn't exist, or if the user was banned.
-  Future<bool> logInUser(
+  Future<void> logInUser(
       {required String email, required String password}) async {
     UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
 
     _uid = userCredential.user!.uid;
     _email = userCredential.user!.email!;
-
-    return true;
   }
 }

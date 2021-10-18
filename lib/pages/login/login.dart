@@ -111,22 +111,21 @@ class _LoginFormState extends State<LoginForm> {
     CurrentUser currentUser = Provider.of<CurrentUser>(context, listen: false);
 
     try {
-      if (await currentUser.logInUser(email: email, password: password)) {
-        Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const Home()));
+      await currentUser.logInUser(email: email, password: password);
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const Home()));
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.green.shade400,
-            content: Row(
-              children: const [
-                Icon(Icons.check_box_outlined, color: Colors.white),
-                SizedBox(
-                  width: 15,
-                ),
-                Expanded(child: Text("Logged in!"))
-              ],
-            )));
-      }
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.green.shade400,
+          content: Row(
+            children: const [
+              Icon(Icons.check_box_outlined, color: Colors.white),
+              SizedBox(
+                width: 15,
+              ),
+              Expanded(child: Text("Logged in!"))
+            ],
+          )));
     } on FirebaseAuthException catch (e) {
       String message;
       switch (e.code) {

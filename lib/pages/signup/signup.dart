@@ -126,20 +126,19 @@ class _SignUpFormState extends State<SignUpForm> {
       {required String email, required String password}) async {
     CurrentUser currentUser = Provider.of<CurrentUser>(context, listen: false);
     try {
-      if (await currentUser.signUpUser(email: email, password: password)) {
-        Navigator.pop(context);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.green.shade400,
-            content: Row(
-              children: const [
-                Icon(Icons.check_box_outlined, color: Colors.white),
-                SizedBox(
-                  width: 15,
-                ),
-                Expanded(child: Text("User created!"))
-              ],
-            )));
-      }
+      await currentUser.signUpUser(email: email, password: password);
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.green.shade400,
+          content: Row(
+            children: const [
+              Icon(Icons.check_box_outlined, color: Colors.white),
+              SizedBox(
+                width: 15,
+              ),
+              Expanded(child: Text("User created!"))
+            ],
+          )));
     } on FirebaseAuthException catch (e) {
       String message;
       switch (e.code) {
