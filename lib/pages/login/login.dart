@@ -112,8 +112,8 @@ class _LoginFormState extends State<LoginForm> {
 
     try {
       if (await currentUser.logInUser(email: email, password: password)) {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const Home()));
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => const Home()));
 
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             backgroundColor: Colors.green.shade400,
