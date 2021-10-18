@@ -57,6 +57,7 @@ class LoginForm extends StatelessWidget {
         TextFormField(
           decoration: const InputDecoration(
               prefixIcon: Icon(Icons.lock_outline), hintText: "Password"),
+          obscureText: true,
         ),
         const SizedBox(
           height: 20,

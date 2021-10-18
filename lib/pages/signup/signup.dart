@@ -84,6 +84,7 @@ class _SignUpFormState extends State<SignUpForm> {
           controller: _passwordController,
           decoration: const InputDecoration(
               prefixIcon: Icon(Icons.lock_outline), hintText: "Password"),
+          obscureText: true,
         ),
         const SizedBox(
           height: 20,
@@ -93,6 +94,7 @@ class _SignUpFormState extends State<SignUpForm> {
           decoration: const InputDecoration(
               prefixIcon: Icon(Icons.lock_outline),
               hintText: "Confirm Password"),
+          obscureText: true,
         ),
         const SizedBox(
           height: 20,
