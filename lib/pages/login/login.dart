@@ -1,6 +1,10 @@
+import 'package:bookclub/pages/home/home.dart';
 import 'package:bookclub/pages/signup/signup.dart';
+import 'package:bookclub/providers/current_user.dart';
 import 'package:bookclub/widgets/app_card.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -29,8 +33,16 @@ class Login extends StatelessWidget {
   }
 }
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +60,7 @@ class LoginForm extends StatelessWidget {
           ),
         ),
         TextFormField(
+          controller: _emailController,
           decoration: const InputDecoration(
               prefixIcon: Icon(Icons.alternate_email), hintText: "Email"),
         ),
@@ -55,14 +68,20 @@ class LoginForm extends StatelessWidget {
           height: 20,
         ),
         TextFormField(
+          controller: _passwordController,
           decoration: const InputDecoration(
               prefixIcon: Icon(Icons.lock_outline), hintText: "Password"),
+          obscureText: true,
         ),
         const SizedBox(
           height: 20,
         ),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            _loginUser(context,
+                email: _emailController.text,
+                password: _passwordController.text);
+          },
           child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 100),
             child: Text(
@@ -85,5 +104,56 @@ class LoginForm extends StatelessWidget {
         )
       ],
     ));
+  }
+
+  Future<void> _loginUser(BuildContext context,
+      {required String email, required String password}) async {
+    CurrentUser currentUser = Provider.of<CurrentUser>(context, listen: false);
+
+    try {
+      await currentUser.logInUser(email: email, password: password);
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const Home()));
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.green.shade400,
+          content: Row(
+            children: const [
+              Icon(Icons.check_box_outlined, color: Colors.white),
+              SizedBox(
+                width: 15,
+              ),
+              Expanded(child: Text("Logged in!"))
+            ],
+          )));
+    } on FirebaseAuthException catch (e) {
+      String message;
+      switch (e.code) {
+        case "wrong-password":
+          message = "The password is invalid";
+          break;
+        case "invalid-email":
+          message = "The email is invalid";
+          break;
+        case "user-not-found":
+          message = "The user wasn't found";
+          break;
+        default:
+          message = "An error occurred while signing up";
+          break;
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Colors.red.shade400,
+          content: Row(
+            children: [
+              const Icon(Icons.error_outline, color: Colors.white),
+              const SizedBox(
+                width: 15,
+              ),
+              Expanded(child: Text(message))
+            ],
+          )));
+    }
   }
 }
