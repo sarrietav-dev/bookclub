@@ -29,8 +29,16 @@ class Login extends StatelessWidget {
   }
 }
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +56,7 @@ class LoginForm extends StatelessWidget {
           ),
         ),
         TextFormField(
+          controller: _emailController,
           decoration: const InputDecoration(
               prefixIcon: Icon(Icons.alternate_email), hintText: "Email"),
         ),
@@ -55,6 +64,7 @@ class LoginForm extends StatelessWidget {
           height: 20,
         ),
         TextFormField(
+          controller: _passwordController,
           decoration: const InputDecoration(
               prefixIcon: Icon(Icons.lock_outline), hintText: "Password"),
           obscureText: true,
