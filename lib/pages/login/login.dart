@@ -24,7 +24,7 @@ class Login extends StatelessWidget {
                   padding: const EdgeInsets.all(40),
                   child: Image.asset("assets/logo.png"),
                 ),
-                const LoginForm(),
+                const _LoginForm(),
               ],
             ),
           ),
@@ -34,14 +34,14 @@ class Login extends StatelessWidget {
   }
 }
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+class _LoginForm extends StatefulWidget {
+  const _LoginForm({Key? key}) : super(key: key);
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<_LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends State<_LoginForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
