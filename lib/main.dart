@@ -20,15 +20,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => CurrentUser(),
-      child: MaterialApp(
-        routes: {
-          Home.routeName: (context) => const Home(),
-          Login.routeName: (context) => const Login(),
-          SignUp.routeName: (context) => const SignUp(),
-        },
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.buildTheme(),
-        home: const Login(),
+      child: Consumer<CurrentUser>(
+        builder: (context, currentUser, _) => MaterialApp(
+          routes: {
+            Home.routeName: (context) {
+              if (currentUser.isAuth) return const Home();
+              return const Login();
+            },
+            Login.routeName: (context) => const Login(),
+            SignUp.routeName: (context) => const SignUp(),
+          },
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.buildTheme(),
+        ),
       ),
     );
   }

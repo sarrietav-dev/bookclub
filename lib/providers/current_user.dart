@@ -11,6 +11,16 @@ class CurrentUser with ChangeNotifier {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  bool get isAuth {
+    User? currentUser = _auth.currentUser;
+
+    if (currentUser == null) return false;
+
+    _uid = currentUser.uid;
+    _email = currentUser.email!;
+    return true;
+  }
+
   /// Creates an user in Firebase using [email] and [password].
   ///
   /// Throws an [FirebaseAuthException] if the password was weak and
@@ -53,7 +63,8 @@ class CurrentUser with ChangeNotifier {
         accessToken: googleSignInAuthentication.accessToken,
         idToken: googleSignInAuthentication.idToken);
 
-    UserCredential userCredential = await _auth.signInWithCredential(authCredential);
+    UserCredential userCredential =
+        await _auth.signInWithCredential(authCredential);
 
     _uid = userCredential.user!.uid;
     _email = userCredential.user!.email!;
