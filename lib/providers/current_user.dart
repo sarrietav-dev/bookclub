@@ -47,8 +47,7 @@ class CurrentUser with ChangeNotifier {
     UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
 
-    _firestoreUser?.uid = userCredential.user!.uid;
-    _firestoreUser?.email = userCredential.user!.email!;
+    _firestoreUser = await Database.getUser(userCredential.user!.uid);
   }
 
   Future<void> googleSignIn() async {
