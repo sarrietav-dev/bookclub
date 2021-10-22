@@ -1,4 +1,6 @@
 import 'package:bookclub/models/user.dart' as model;
+import 'package:bookclub/providers/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -23,9 +25,17 @@ class CurrentUser with ChangeNotifier {
   /// Throws an [FirebaseAuthException] if the password was weak and
   /// if the email was invalid or already in use.
   Future<void> signUpUser(
-      {required String email, required String password}) async {
-    await _auth.createUserWithEmailAndPassword(
+      {required String email,
+      required String password,
+      required String name}) async {
+    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
+
+    await Database.createUser(model.User(
+        name: name,
+        email: email,
+        uid: userCredential.user!.uid,
+        accountCreated: Timestamp.now()));
   }
 
   /// Logs the user in and sets up the data in the provider

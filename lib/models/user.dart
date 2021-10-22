@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bookclub/utils/typedefs.dart';
 
 /// Represents an User in the Firestore database.
 class User {
@@ -12,4 +13,15 @@ class User {
       required this.email,
       required this.name,
       required this.accountCreated});
+
+  
+
+  Json call() {
+    return {
+      'uid': uid,
+      'email': email,
+      'name': name,
+      'accountCreated': accountCreated
+    };
+  }
 }
