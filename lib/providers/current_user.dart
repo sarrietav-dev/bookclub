@@ -15,8 +15,7 @@ class CurrentUser with ChangeNotifier {
 
     if (currentUser == null) return false;
 
-    _firestoreUser?.uid = currentUser.uid;
-    _firestoreUser?.email = currentUser.email!;
+    Database.getUser(currentUser.uid).then((value) => _firestoreUser = value);
     return true;
   }
 
