@@ -1,4 +1,6 @@
+import 'package:bookclub/providers/current_user.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class GoogleAuthButton extends StatelessWidget {
   const GoogleAuthButton({Key? key}) : super(key: key);
@@ -12,7 +14,12 @@ class GoogleAuthButton extends StatelessWidget {
             side: const BorderSide(color: Colors.grey),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(40))),
-        onPressed: () {},
+        onPressed: () async {
+          CurrentUser currentUser =
+              Provider.of<CurrentUser>(context, listen: false);
+
+          await currentUser.googleSignIn();
+        },
         child: Padding(
           padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
           child: Row(
