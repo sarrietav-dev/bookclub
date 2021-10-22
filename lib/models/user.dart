@@ -14,8 +14,6 @@ class User {
       required this.name,
       required this.accountCreated});
 
-  
-
   Json call() {
     return {
       'uid': uid,
