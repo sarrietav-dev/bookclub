@@ -1,13 +1,10 @@
+import 'package:bookclub/models/user.dart' as firestore_model;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class CurrentUser with ChangeNotifier {
-  String? _uid;
-  String? _email;
-
-  String? get uid => _uid;
-  String? get email => _email;
+  firestore_model.User? _firestoreUser;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -16,8 +13,8 @@ class CurrentUser with ChangeNotifier {
 
     if (currentUser == null) return false;
 
-    _uid = currentUser.uid;
-    _email = currentUser.email!;
+    _firestoreUser?.uid = currentUser.uid;
+    _firestoreUser?.email = currentUser.email!;
     return true;
   }
 
@@ -40,8 +37,8 @@ class CurrentUser with ChangeNotifier {
     UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
 
-    _uid = userCredential.user!.uid;
-    _email = userCredential.user!.email!;
+    _firestoreUser?.uid = userCredential.user!.uid;
+    _firestoreUser?.email = userCredential.user!.email!;
   }
 
   Future<void> googleSignIn() async {
@@ -66,17 +63,12 @@ class CurrentUser with ChangeNotifier {
     UserCredential userCredential =
         await _auth.signInWithCredential(authCredential);
 
-    _uid = userCredential.user!.uid;
-    _email = userCredential.user!.email!;
+    _firestoreUser?.uid = userCredential.user!.uid;
+    _firestoreUser?.email = userCredential.user!.email!;
   }
 
   Future<void> signOut() async {
     await _auth.signOut();
-    _clearCredentials();
-  }
-
-  void _clearCredentials() {
-    _uid = null;
-    _email = null;
+    _firestoreUser = null;
   }
 }
