@@ -73,15 +73,14 @@ class CurrentUser with ChangeNotifier {
         await _auth.signInWithCredential(authCredential);
 
     if (userCredential.additionalUserInfo!.isNewUser) {
-      Database.createUser(model.User(
+      await Database.createUser(model.User(
           uid: userCredential.user!.uid,
           email: userCredential.user!.email!,
           name: userCredential.user!.displayName ?? "Unknown",
           accountCreated: Timestamp.now()));
     }
 
-    _firestoreUser?.uid = userCredential.user!.uid;
-    _firestoreUser?.email = userCredential.user!.email!;
+    _firestoreUser = await Database.getUser(userCredential.user!.uid);
   }
 
   Future<void> signOut() async {
