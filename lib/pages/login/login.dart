@@ -2,6 +2,7 @@ import 'package:bookclub/pages/home/home.dart';
 import 'package:bookclub/pages/signup/signup.dart';
 import 'package:bookclub/providers/current_user.dart';
 import 'package:bookclub/widgets/app_card.dart';
+import 'package:bookclub/widgets/google_auth_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,7 @@ class Login extends StatelessWidget {
                   padding: const EdgeInsets.all(40),
                   child: Image.asset("assets/logo.png"),
                 ),
-                const LoginForm(),
+                const _LoginForm(),
               ],
             ),
           ),
@@ -34,14 +35,14 @@ class Login extends StatelessWidget {
   }
 }
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({Key? key}) : super(key: key);
+class _LoginForm extends StatefulWidget {
+  const _LoginForm({Key? key}) : super(key: key);
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<_LoginForm> createState() => _LoginFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _LoginFormState extends State<_LoginForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -96,7 +97,8 @@ class _LoginFormState extends State<LoginForm> {
           child: const Text("Don't have an account? Sign up here"),
           style: TextButton.styleFrom(
               tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-        )
+        ),
+        const GoogleAuthButton()
       ],
     ));
   }

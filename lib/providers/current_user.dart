@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class CurrentUser with ChangeNotifier {
   late final String _uid;
@@ -28,6 +29,31 @@ class CurrentUser with ChangeNotifier {
       {required String email, required String password}) async {
     UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
+
+    _uid = userCredential.user!.uid;
+    _email = userCredential.user!.email!;
+  }
+
+  Future<void> googleSignIn() async {
+    GoogleSignIn googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        'https://www.googleapis.com/auth/contacts.readonly',
+      ],
+    );
+
+    GoogleSignInAccount? googleSignInAccount = await googleSignIn.signIn();
+
+    if (googleSignInAccount == null) return;
+
+    GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    AuthCredential authCredential = await GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken);
+
+    UserCredential userCredential = await _auth.signInWithCredential(authCredential);
 
     _uid = userCredential.user!.uid;
     _email = userCredential.user!.email!;
