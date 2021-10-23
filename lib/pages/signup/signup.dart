@@ -105,7 +105,8 @@ class _SignUpFormState extends State<_SignUpForm> {
             if (_passwordController.text == _confirmPasswordController.text) {
               _signUpUser(context,
                   email: _emailController.text,
-                  password: _passwordController.text);
+                  password: _passwordController.text,
+                  name: _nameController.text);
             }
           },
           child: const Padding(
@@ -124,10 +125,13 @@ class _SignUpFormState extends State<_SignUpForm> {
   }
 
   void _signUpUser(BuildContext context,
-      {required String email, required String password}) async {
+      {required String email,
+      required String password,
+      required String name}) async {
     CurrentUser currentUser = Provider.of<CurrentUser>(context, listen: false);
     try {
-      await currentUser.signUpUser(email: email, password: password);
+      await currentUser.signUpUser(
+          email: email, password: password, name: name);
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: Colors.green.shade400,

@@ -1,13 +1,12 @@
+import 'package:bookclub/models/user.dart' as model;
+import 'package:bookclub/providers/database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class CurrentUser with ChangeNotifier {
-  String? _uid;
-  String? _email;
-
-  String? get uid => _uid;
-  String? get email => _email;
+  model.User? _firestoreUser;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -16,8 +15,7 @@ class CurrentUser with ChangeNotifier {
 
     if (currentUser == null) return false;
 
-    _uid = currentUser.uid;
-    _email = currentUser.email!;
+    Database.getUser(currentUser.uid).then((value) => _firestoreUser = value);
     return true;
   }
 
@@ -26,9 +24,17 @@ class CurrentUser with ChangeNotifier {
   /// Throws an [FirebaseAuthException] if the password was weak and
   /// if the email was invalid or already in use.
   Future<void> signUpUser(
-      {required String email, required String password}) async {
-    await _auth.createUserWithEmailAndPassword(
+      {required String email,
+      required String password,
+      required String name}) async {
+    UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
+
+    await Database.createUser(model.User(
+        name: name,
+        email: email,
+        uid: userCredential.user!.uid,
+        accountCreated: Timestamp.now()));
   }
 
   /// Logs the user in and sets up the data in the provider
@@ -40,8 +46,7 @@ class CurrentUser with ChangeNotifier {
     UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: email, password: password);
 
-    _uid = userCredential.user!.uid;
-    _email = userCredential.user!.email!;
+    _firestoreUser = await Database.getUser(userCredential.user!.uid);
   }
 
   Future<void> googleSignIn() async {
@@ -66,17 +71,19 @@ class CurrentUser with ChangeNotifier {
     UserCredential userCredential =
         await _auth.signInWithCredential(authCredential);
 
-    _uid = userCredential.user!.uid;
-    _email = userCredential.user!.email!;
+    if (userCredential.additionalUserInfo!.isNewUser) {
+      await Database.createUser(model.User(
+          uid: userCredential.user!.uid,
+          email: userCredential.user!.email!,
+          name: userCredential.user!.displayName ?? "Unknown",
+          accountCreated: Timestamp.now()));
+    }
+
+    _firestoreUser = await Database.getUser(userCredential.user!.uid);
   }
 
   Future<void> signOut() async {
     await _auth.signOut();
-    _clearCredentials();
-  }
-
-  void _clearCredentials() {
-    _uid = null;
-    _email = null;
+    _firestoreUser = null;
   }
 }
