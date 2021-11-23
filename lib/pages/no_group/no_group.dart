@@ -20,12 +20,15 @@ class NoGroup extends StatelessWidget {
           const Spacer(
             flex: 1,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(onPressed: () {}, child: const Text("Create")),
-              ElevatedButton(onPressed: () {}, child: const Text("Join"))
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(onPressed: () {}, child: const Text("Create")),
+                ElevatedButton(onPressed: () {}, child: const Text("Join"))
+              ],
+            ),
           )
         ],
       ),
