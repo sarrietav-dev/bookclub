@@ -30,7 +30,11 @@ class NoGroup extends StatelessWidget {
               children: [
                 ElevatedButton(
                     onPressed: _goToCreate, child: const Text("Create")),
-                ElevatedButton(onPressed: _goToJoin, child: const Text("Join"))
+                ElevatedButton(
+                    onPressed: _goToJoin,
+                    style: ElevatedButton.styleFrom(
+                        textStyle: const TextStyle(color: Colors.white)),
+                    child: const Text("Join"))
               ],
             ),
           )
