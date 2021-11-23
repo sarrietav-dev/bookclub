@@ -45,12 +45,20 @@ class NoGroup extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                    onPressed: _goToCreate, child: const Text("Create")),
-                ElevatedButton(
-                    onPressed: _goToJoin,
-                    style: ElevatedButton.styleFrom(
-                        textStyle: const TextStyle(color: Colors.white)),
-                    child: const Text("Join"))
+                  onPressed: _goToCreate,
+                  child: Text(
+                    "Create",
+                    style: TextStyle(color: Colors.grey.shade600),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      primary: Theme.of(context).canvasColor,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          side: BorderSide(
+                              color: Theme.of(context).secondaryHeaderColor,
+                              width: 2))),
+                ),
+                ElevatedButton(onPressed: _goToJoin, child: const Text("Join"))
               ],
             ),
           )
