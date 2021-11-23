@@ -82,8 +82,7 @@ class Home extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
             child: ElevatedButton(
-              onPressed: () =>
-                  Navigator.of(context).pushNamed(NoGroup.routeName),
+              onPressed: () {},
               child: const Text("Book Club History"),
             ),
           ),
