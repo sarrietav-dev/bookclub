@@ -1,5 +1,6 @@
 import 'package:bookclub/pages/home/home.dart';
 import 'package:bookclub/pages/login/login.dart';
+import 'package:bookclub/pages/no_group/no_group.dart';
 import 'package:bookclub/pages/signup/signup.dart';
 import 'package:bookclub/providers/current_user.dart';
 import 'package:bookclub/utils/theme.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
             },
             Login.routeName: (context) => const Login(),
             SignUp.routeName: (context) => const SignUp(),
+            NoGroup.routeName: (context) => const NoGroup(),
           },
           debugShowCheckedModeBanner: false,
           theme: AppTheme.buildTheme(),
