@@ -5,6 +5,9 @@ class NoGroup extends StatelessWidget {
 
   static const routeName = "/no-group";
 
+  void _goToCreate() {}
+  void _goToJoin() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,8 +28,9 @@ class NoGroup extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                ElevatedButton(onPressed: () {}, child: const Text("Create")),
-                ElevatedButton(onPressed: () {}, child: const Text("Join"))
+                ElevatedButton(
+                    onPressed: _goToCreate, child: const Text("Create")),
+                ElevatedButton(onPressed: _goToJoin, child: const Text("Join"))
               ],
             ),
           )
