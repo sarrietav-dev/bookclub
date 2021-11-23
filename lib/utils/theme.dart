@@ -25,7 +25,7 @@ class AppTheme {
           style: ElevatedButton.styleFrom(
               primary: _darkerGrey,
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              minimumSize: const Size(200, 40),
+              minimumSize: const Size(150, 40),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)))),
     );
