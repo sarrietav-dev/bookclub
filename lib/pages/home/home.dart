@@ -1,4 +1,5 @@
 import 'package:bookclub/pages/login/login.dart';
+import 'package:bookclub/pages/no_group/no_group.dart';
 import 'package:bookclub/providers/current_user.dart';
 import 'package:bookclub/widgets/app_card.dart';
 import 'package:flutter/material.dart';
@@ -81,7 +82,8 @@ class Home extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(NoGroup.routeName),
               child: const Text("Book Club History"),
             ),
           ),
