@@ -20,6 +20,22 @@ class NoGroup extends StatelessWidget {
             padding: const EdgeInsets.all(80),
             child: Image.asset("assets/logo.png"),
           ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: Text(
+              "Welcome to Book Club",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 40, color: Colors.grey.shade600),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              "Since you are not in a book club, you can select either to join a club or to create a club",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20, color: Colors.grey.shade600),
+            ),
+          ),
           const Spacer(
             flex: 1,
           ),
